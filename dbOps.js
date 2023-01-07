@@ -33,6 +33,33 @@ async function insertInDb(id, record) {
     }
 }
 
+function paginatedResults() {
+    return async (req, res, next) => {
+        const page = parseInt(req.query.page);
+        const limit = MAX_RESULTS;
+        const skipIndex = (page - 1) * limit;
+        const results = {};
+
+        try {
+            results.results = await Videos.find()
+            .sort({publishedAt: -1})    
+            .limit(limit)
+            .skip(skipIndex)
+            .exec();
+            const totalDocs = await Videos.countDocuments();
+            results.nextPage = Math.ceil((totalDocs - skipIndex) / limit) - 1
+            res.paginatedResults = results;
+            next();
+        } catch (e) {
+        console.log(e)
+        res
+            .status(500)
+            .json({ message: "Error Occured while fetching the data from db" });
+        }
+    };
+}
+
 module.exports = {
-    insertInDb
+    insertInDb,
+    paginatedResults
 }

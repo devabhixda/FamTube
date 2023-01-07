@@ -2,6 +2,7 @@ const request = require("request-promise");
 const { MAX_SEARCH_LIMIT, SEARCH_FREQUENCY_MINUTES } = require('./constants/config');
 const { ALTERNATE_API_KEYS } = require('./constants/keys');
 const { searchUrl } = require('./constants/searchUrl');
+const { insertInDb } = require('./dbOps');
 
 function getTime() {
     // Current time - time when we last fetched the videos
@@ -33,6 +34,8 @@ async function fetchVideos() {
                     Array.from(parsedResponse.items).forEach(function(item) {
                         videosInResponse++
                         var id = item.id.videoId
+                        // Convert the item into video object and store in db
+                        insertInDb(id, item.snippet)
                     });
                     itemCount += videosInResponse
                     console.log("Fetched %s videos in API call at %s", videosInResponse, time)

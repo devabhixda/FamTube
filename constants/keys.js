@@ -1,0 +1,7 @@
+const YOUTUBE_API_KEY = 'KEY1'
+const ALTERNATE_API_KEYS = ['ALT_KEY1']
+
+module.exports = {
+    YOUTUBE_API_KEY,
+    ALTERNATE_API_KEYS
+}

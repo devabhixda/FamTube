@@ -1,4 +1,4 @@
-const MONGO_URL = 'mongodb://localhost:7200/';
+const MONGO_URL = 'mongodb://mongo:27017/';
 const DB_NAME = "youtube";
 
 

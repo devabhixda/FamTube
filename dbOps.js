@@ -59,7 +59,25 @@ function paginatedResults() {
     };
 }
 
+function searchDb() {
+    return async (req, res, next) => {
+        const searchQuery = req.query.search_query;
+        const results = {};
+        try {
+            results.results = await Videos.fuzzySearch(searchQuery);
+            res.paginatedResults = results;
+            next();
+        } catch (e) {
+        console.log(e)
+        res
+            .status(500)
+            .json({ message: "Error Occured while fetching the data from db" });
+        }
+    };
+}
+
 module.exports = {
     insertInDb,
-    paginatedResults
+    paginatedResults, 
+    searchDb
 }

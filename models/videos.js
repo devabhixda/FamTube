@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseFuzzySearching = require('mongoose-fuzzy-searching')
 
 const videoSchema = new mongoose.Schema({
   id: {
@@ -22,6 +23,8 @@ const videoSchema = new mongoose.Schema({
     required: true
   }
 });
+
+videoSchema.plugin(mongooseFuzzySearching, { fields: ['title', 'description'] })
 
 const Videos = mongoose.model("videos", videoSchema);
 

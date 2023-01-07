@@ -1,10 +1,9 @@
 const express = require('express')
+const { fetchVideos } = require('./fetchVideos')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-    res.send("Hello Github")
-})
+fetchVideos()
 
 app.listen(port, () => {
     console.log(`Youtube search listening on port ${port}`)

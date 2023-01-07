@@ -4,17 +4,22 @@ const mongoose = require("mongoose");
 const Videos = require("./models/videos");
 const { MONGO_URL, DB_NAME } = require("./constants/dbConfig");
   
-mongoose.set('strictQuery', false);
-mongoose.connect(MONGO_URL + DB_NAME, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+async function setupDb() {
+    mongoose.set('strictQuery', false);
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", function () {
-    console.log("Connected to db successfully");
-});
+    await mongoose.connect(MONGO_URL + DB_NAME, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })   
+    .then(() => console.log("Database connected!"))
+    .catch(err => console.log(err));
+
+    const db = mongoose.connection;
+    db.on("error", console.error.bind(console, "connection error: "));
+    db.once("open", function () {
+        console.log("Connected to db successfully");
+    });
+}
 
 
 async function insertInDb(id, record) {
@@ -78,5 +83,6 @@ function searchDb() {
 module.exports = {
     insertInDb,
     paginatedResults, 
-    searchDb
+    searchDb,
+    setupDb
 }

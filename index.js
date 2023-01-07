@@ -1,10 +1,13 @@
 const express = require('express')
 const { fetchVideos } = require('./fetchVideos')
-const { paginatedResults, searchDb } = require('./dbOps')
+const { paginatedResults, searchDb, setupDb } = require('./dbOps')
 const app = express()
 const port = 3000
 
-fetchVideos()
+setupDb().then(() => {
+    fetchVideos()
+});
+
 
 app.get('/videos', paginatedResults(), (req, res) => {
     res.json(res.paginatedResults)

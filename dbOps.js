@@ -1,12 +1,11 @@
 const { MongoClient } = require("mongodb");
 const { MAX_RESULTS } = require("./constants/config");
-const url = 'mongodb://localhost:7200/';
-const databasename = "youtube";
 const mongoose = require("mongoose");
 const Videos = require("./models/videos");
+const { MONGO_URL, DB_NAME } = require("./constants/dbConfig");
   
 mongoose.set('strictQuery', false);
-mongoose.connect(url + databasename, {
+mongoose.connect(MONGO_URL + DB_NAME, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

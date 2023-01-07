@@ -2,7 +2,7 @@ const express = require('express')
 const { fetchVideos } = require('./fetchVideos')
 const { paginatedResults, searchDb, setupDb } = require('./dbOps')
 const app = express()
-const port = 3000
+const port = 8080
 
 setupDb().then(() => {
     fetchVideos()

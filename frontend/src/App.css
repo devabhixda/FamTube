@@ -1,0 +1,47 @@
+.main {
+    margin-bottom: 5vh;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    margin-top: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchbar {
+    margin-top: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textfield {
+    width: 20vw;
+}
+
+.pagination {
+    flex: 1;
+    margin-bottom: 0vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    margin-left: 1vw;
+}
+
+/* 89620152538 */

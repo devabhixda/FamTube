@@ -1,5 +1,5 @@
 {
-  "name": "youtube-search-backend",
+  "name": "famtube-backend",
   "version": "1.0.0",
   "description": "NodeJS application to serve as backend for custom youtube search",
   "main": "index.js",

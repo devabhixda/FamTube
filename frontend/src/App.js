@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { FidgetSpinner } from  'react-loader-spinner'
-import Header from "./components/Header";
 import ListItem from "./components/ListItem"
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination'
@@ -15,7 +14,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             items: [],
-            isLoading: true,
+            isLoading: false,
             nextPage: -1,
             page: 1,
             totalPages: 0,
@@ -61,7 +60,9 @@ class App extends React.Component {
       </div>);
     return (
       <div class="main">
-        <Header />
+        <div class='header'>
+          <img src={require('./resources/famtube.png')} alt="logo" class="logo"/>
+        </div>
         <div class="searchbar">
           <TextField value={searchInput} id="outlined-basic" label="Search" variant="outlined" className="textfield" onChange={(event) => this.handleTextField(event)}/>
           <div class="button">

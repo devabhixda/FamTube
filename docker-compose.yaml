@@ -1,23 +1,23 @@
 version: "3"
 services:
-  youtube-search-backend:
-    container_name: youtube-search-backend
-    image: youtube-search-backend
+  famtube-backend:
+    container_name: famtube-backend
+    image: famtube-backend
     restart: always
     build: ./backend
     ports:
       - "8080:8080"
     links:
       - mongo
-  youtube-search-frontend:
-    container_name: youtube-search-frontend
-    image: youtube-search-frontend
+  famtube-frontend:
+    container_name: famtube-frontend
+    image: famtube-frontend
     restart: always
     build: ./frontend
     ports:
       - "3000:3000"
     links:
-      - youtube-search-backend
+      - famtube-backend
   mongo:
     container_name: mongo
     image: mongo

@@ -34,7 +34,12 @@ These instructions will get you a copy of the project up and running on your loc
 * Run `docker-compose up` to start the containers
 * You can now use the application at http://localhost:3000
 
+## Features
 
+* Continuous fetching of videos in background
+* Automatic API key rotation
+* Friendly UI 
+* Fuzzy Search
 
 ## Authors
  

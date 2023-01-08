@@ -1,10 +1,10 @@
 version: "3"
 services:
-  youtube-search:
-    container_name: youtube-search
-    image: youtube-search
+  youtube-search-backend:
+    container_name: youtube-search-backend
+    image: youtube-search-backend
     restart: always
-    build: .
+    build: ./backend
     ports:
       - "8080:8080"
     links:

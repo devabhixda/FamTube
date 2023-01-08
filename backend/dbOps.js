@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const { MAX_RESULTS } = require("./constants/config");
+const { MAX_RESULTS, MIN_CONFIDENCE } = require("./constants/config");
 const mongoose = require("mongoose");
 const Videos = require("./models/videos");
 const { MONGO_URL, DB_NAME } = require("./constants/dbConfig");
@@ -39,7 +39,10 @@ async function insertInDb(id, record) {
 
 function paginatedResults() {
     return async (req, res, next) => {
-        const page = parseInt(req.query.page);
+        var page = parseInt(req.query.page);
+        if(isNaN(page)) {
+            page = 1
+        }
         const limit = MAX_RESULTS;
         const skipIndex = (page - 1) * limit;
         const results = {};
@@ -51,7 +54,8 @@ function paginatedResults() {
             .skip(skipIndex)
             .exec();
             const totalDocs = await Videos.countDocuments();
-            results.nextPage = Math.ceil((totalDocs - skipIndex) / limit) - 1
+            results.nextPage = Math.ceil((totalDocs - skipIndex) / limit)
+            results.totalDocs = Math.ceil(totalDocs/limit)
             res.paginatedResults = results;
             next();
         } catch (e) {
@@ -66,9 +70,16 @@ function paginatedResults() {
 function searchDb() {
     return async (req, res, next) => {
         const searchQuery = req.query.search_query;
-        const results = {};
+        console.log("Search videos API triggered with param", searchQuery)
+        const results = [];
         try {
-            results.results = await Videos.fuzzySearch(searchQuery);
+            var result = await Videos.fuzzySearch(searchQuery);
+            result.forEach(element => {
+                // Consider only the elements for which min confidence is greater than threshold
+                if(element._doc.confidenceScore > MIN_CONFIDENCE) {
+                    results.push(element)
+                }
+            });
             res.paginatedResults = results;
             next();
         } catch (e) {

@@ -9,6 +9,15 @@ services:
       - "8080:8080"
     links:
       - mongo
+  youtube-search-frontend:
+    container_name: youtube-search-frontend
+    image: youtube-search-frontend
+    restart: always
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    links:
+      - youtube-search-backend
   mongo:
     container_name: mongo
     image: mongo
